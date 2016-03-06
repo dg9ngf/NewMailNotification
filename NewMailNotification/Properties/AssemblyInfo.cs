@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 [assembly: AssemblyProduct("NewMailNotification")]
 [assembly: AssemblyTitle("NewMailNotification")]
-[assembly: AssemblyDescription("NewMailNotification")]
+[assembly: AssemblyDescription("Thunderbird new e-mail notification UI helper, designed to work with the Mailbox Alert add-on.")]
 [assembly: AssemblyCopyright("© Yves Goergen, GNU GPL")]
 [assembly: AssemblyCompany("unclassified software development")]
 
