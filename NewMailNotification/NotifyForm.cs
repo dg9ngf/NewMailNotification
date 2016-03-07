@@ -80,19 +80,6 @@ namespace NewMailNotification
 					.OfType<AutomationElement>()
 					.FirstOrDefault(a => a.Current.Name.EndsWith("Mozilla Thunderbird"));
 
-				// Restore window in case it's minimised
-				var windowplacement = SafeNativeMethods.WINDOWPLACEMENT.Default;
-				SafeNativeMethods.GetWindowPlacement(new IntPtr(thunderbirdWindow.Current.NativeWindowHandle), ref windowplacement);
-				var windowPattern = thunderbirdWindow.GetCurrentPattern(WindowPattern.Pattern) as WindowPattern;
-				if ((windowplacement.Flags & 2 /*WPF_RESTORETOMAXIMIZED*/) != 0)
-				{
-					windowPattern.SetWindowVisualState(WindowVisualState.Maximized);
-				}
-				else
-				{
-					windowPattern.SetWindowVisualState(WindowVisualState.Normal);
-				}
-
 				// Find UI elements
 				var accountsTree = thunderbirdWindow.FindFirst(
 					TreeScope.Descendants,
@@ -131,6 +118,19 @@ namespace NewMailNotification
 				// Select the reported message in the list
 				invokePattern = messageRow.GetCurrentPattern(InvokePattern.Pattern) as InvokePattern;
 				invokePattern.Invoke();
+
+				// Restore window in case it's minimised
+				var windowplacement = SafeNativeMethods.WINDOWPLACEMENT.Default;
+				SafeNativeMethods.GetWindowPlacement(new IntPtr(thunderbirdWindow.Current.NativeWindowHandle), ref windowplacement);
+				var windowPattern = thunderbirdWindow.GetCurrentPattern(WindowPattern.Pattern) as WindowPattern;
+				if ((windowplacement.Flags & 2 /*WPF_RESTORETOMAXIMIZED*/) != 0)
+				{
+					windowPattern.SetWindowVisualState(WindowVisualState.Maximized);
+				}
+				else
+				{
+					windowPattern.SetWindowVisualState(WindowVisualState.Normal);
+				}
 			}
 			catch
 			{
